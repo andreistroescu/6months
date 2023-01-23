@@ -1,6 +1,6 @@
 // @ts-ignore
 import * as React from 'react';
-import Card from './card.tsx';
+import Card from './card';
 
 
 function Header() {
