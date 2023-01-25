@@ -1,11 +1,7 @@
 import '../App.css';
 import React from 'react';
 
-interface Card {
-  title: string;
-}
-
-const Card = (props: Card) => {
+const Card = (props) => {
   return (
     <div className="App">
         <header className="App-header">
