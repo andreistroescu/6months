@@ -1,24 +1,68 @@
 import * as React from 'react';
 import '../App.css';
+import { useState } from 'react';
 
-let salary = 5200;
-let rent = 1800;
-let bills = 500;
-let money =+ salary;
-let wellbeingPoints = 6;
-let month = 1;
+const initialStats = [{
+  id: 0,
+  name: 'Salary',
+  count: 5200,
+}, {
+  id: 1,
+  name: 'Wellbeing points',
+  count: 5,
+}, {
+  id: 2,
+  name: 'Initiative points',
+  count: 2,
+}];
+
 
 function Stats() {
-    return (
-        <div className='Stats'>
-          <p className='Paragraph'>Salary: {salary}</p>
-          <p className='Paragraph'>Rent: {rent}</p>
-          <p className='Paragraph'>Bills: {bills}</p>
-          <p className='Paragraph'>Money: {money}</p>
-          <p className='Paragraph'>Wellbeing points: {wellbeingPoints}</p>
-          <p className='Paragraph'>Month number: {month}</p>
+  const [stats, setStats] = useState(initialStats)
+
+  function handleIncreaseClick(itemId) {
+    setStats(stats.map(item => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          count: item.count + 1
+        };
+      } else {
+        return item;
+      }
+    }))
+  }
+
+  function handleIncreaseSalary(percent) {
+    setStats(stats.map(item => {
+      if (item.name === 'Salary') {
+        return {
+          ...item,
+          count: item.count + percent/100 * item.count
+        };
+      } else {
+        return item;
+      }
+    }))
+  }
+
+  
+  return (
+    <div>
+      {stats.map(item => (
+        <div className='Stats' key={item.id}>
+          {item.name}
+          {' '}
+          (<b>{item.count}</b>)
+          <button onClick={() => {
+            item.name === 'Salary' ? handleIncreaseSalary(5) : handleIncreaseClick(item.id);
+          }}>
+            +
+          </button>
         </div>
-      );
+      ))}
+    </div>
+    );
 }
 
 export default Stats;
